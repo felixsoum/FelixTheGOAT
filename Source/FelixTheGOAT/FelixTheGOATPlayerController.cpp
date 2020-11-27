@@ -37,6 +37,7 @@ void AFelixTheGOATPlayerController::SetupInputComponent()
 	InputComponent->BindTouch(EInputEvent::IE_Repeat, this, &AFelixTheGOATPlayerController::MoveToTouchLocation);
 
 	InputComponent->BindAction("ResetVR", IE_Pressed, this, &AFelixTheGOATPlayerController::OnResetVR);
+	InputComponent->BindAction("Shoot", IE_Pressed, this, &AFelixTheGOATPlayerController::OnShoot);
 }
 
 void AFelixTheGOATPlayerController::OnResetVR()
@@ -109,4 +110,11 @@ void AFelixTheGOATPlayerController::OnSetDestinationReleased()
 {
 	// clear flag to indicate we should stop updating the destination
 	bMoveToMouseCursor = false;
+}
+
+void AFelixTheGOATPlayerController::OnShoot()
+{
+	GEngine->AddOnScreenDebugMessage(0, 2, FColor::Red, TEXT("Pew"));
+	AFelixTheGOATCharacter* MyCharacter = Cast<AFelixTheGOATCharacter>(GetPawn());
+	MyCharacter->Shoot();
 }

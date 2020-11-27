@@ -55,6 +55,9 @@ AFelixTheGOATCharacter::AFelixTheGOATCharacter()
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+
+	ProjectileOrigin = CreateDefaultSubobject<USceneComponent>(TEXT("ProjectileOrigin"));
+	ProjectileOrigin->SetupAttachment(RootComponent);
 }
 
 void AFelixTheGOATCharacter::Tick(float DeltaSeconds)
@@ -87,4 +90,9 @@ void AFelixTheGOATCharacter::Tick(float DeltaSeconds)
 			CursorToWorld->SetWorldRotation(CursorR);
 		}
 	}
+}
+
+void AFelixTheGOATCharacter::Shoot()
+{
+	GetWorld()->SpawnActor<AActor>(ProjectileActor, ProjectileOrigin->GetComponentTransform());
 }
